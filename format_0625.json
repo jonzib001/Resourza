@@ -1,0 +1,44 @@
+{
+    "code": "0625",
+    "name": "IGCSE Physics",
+    "short_name": "Physics",
+    "type": "IGCSE",
+    "yearstart": 10,
+    "yearend": 23,
+    "info": {
+        "components": [
+            {
+                "name": "Multiple Choice",
+                "code": "0620",
+                "duration": "45m",
+                "total_marks": 40,
+                "paper": 1
+            },
+            {
+                "name": "Paper 2 (Multichoice before 2016, Theory core after 2016)",
+                "code": "0620",
+                "duration": "1h 15m",
+                "total_marks": 75,
+                "paper": 2
+            },
+            {
+                "name": "Paper 3 (Theory Core after 2016)",
+                "code": "0620",
+                "duration": "1h 15m",
+                "total_marks": 50,
+                "paper": 3
+            },
+            {
+                "name": "Paper 4 (Theory Extended after 2016)",
+                "code": "0620",
+                "duration": "1h 15m",
+                "total_marks": 50,
+                "paper": 4
+            }
+        ]
+    },
+    "urldata": {
+        "url": "https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+    }
+}

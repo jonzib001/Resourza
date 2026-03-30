@@ -1,0 +1,39 @@
+{
+    "code": 9702,
+    "name": "AS and A-Level Physics",
+    "short_name": "Physics",
+    "type": "AS and A-Level",
+    "yearstart": 10,
+    "yearend": 24,
+    "info": {
+        "duration": "1h 30m",
+        "total_marks": 75,
+        "components": [
+            {
+                "name": "AS Multi-Choice",
+                "code": 9702,
+                "duration": "1h 30m",
+                "total_marks": 75,
+                "paper": 1
+            },
+            {
+                "name": "AS Structured Response",
+                "code": 9702,
+                "duration": "1h 30m",
+                "total_marks": 75,
+                "paper": 2
+            },
+            {
+              "name": "A2 Structured",
+              "code": 9702,
+              "duration": "1h 30m",
+              "total_marks": 75,
+              "paper": 4
+            }
+        ]
+    },
+    "urldata": {
+        "url": "https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+    }
+}

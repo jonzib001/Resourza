@@ -1,0 +1,53 @@
+{
+    "code": 9709,
+    "name": "AS and A-Level Mathematics",
+    "short_name": "Mathematics",
+    "type": "AS and A-Level",
+    "yearstart": 10,
+    "yearend": 25,
+    "info": {
+        "duration": "1h 30m",
+        "total_marks": 75,
+        "components": [
+            {
+                "name": "Pure Mathematics 1",
+                "code": 9709,
+                "duration": "1h 30m",
+                "total_marks": 75,
+                "paper": 1
+            },
+            {
+                "name": "Pure Mathematics 3",
+                "code": 9709,
+                "duration": "1h 30m",
+                "total_marks": 75,
+                "paper": 3
+            },
+            {
+                "name": "Probability and Statistics 1/Mechanics 2 until 2020",
+                "code": 9709,
+                "duration": "1h 15m",
+                "total_marks": 50,
+                "paper": 5
+            },
+            {
+                "name": "Probability and Statistics 2/Probability and Statistics 1 until 2020",
+                "code": 9709,
+                "duration": "1h 15m",
+                "total_marks": 50,
+                "paper": 6
+            },
+            {
+                "name": "Probability and Statistics 2 until 2020",
+                "code": 9709,
+                "duration": "1h 15m",
+                "total_marks": 50,
+                "paper": 7
+            }
+        ]
+    },
+    "urldata": {
+        "url": "https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+    }
+}

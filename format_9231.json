@@ -1,0 +1,46 @@
+{
+    "code": 9231,
+    "name": "AS and A-Level Mathematics - Further",
+    "short_name": "Further Mathematics",
+    "type": "AS and A-Level",
+    "yearstart": 10,
+    "yearend": 25,
+    "info": {
+        "duration": "2h",
+        "total_marks": 75,
+        "components": [
+            {
+                "name": "Further Pure Mathematics 1",
+                "code": 9231,
+                "duration": "2h",
+                "total_marks": 75,
+                "paper": 1
+            },
+            {
+                "name": "Further Pure Mathematics 2",
+                "code": 9231,
+                "duration": "2h",
+                "total_marks": 75,
+                "paper": 2
+            },
+	    {
+		"name": "Further Mechanics",
+		"code": 9231,
+		"duration": "1h 30m",
+		"total_marks": 75,
+		"paper": 3
+	    },
+            {
+                "name": "Further Probability and Statistics",
+                "code": 9231,
+                "duration": "1h 30m",
+                "total_marks": 50,
+                "paper": 4
+            }
+        ]
+    },
+    "urldata": {
+        "url": "https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/",
+        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"
+    }
+}
