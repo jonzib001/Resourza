@@ -11,7 +11,7 @@ from rich.console import Console
 from rich.progress import Progress
 from shutil import copyfile, copytree
 
-
+##make sure no temp folder made
 jinjaenvironment = Environment(
     loader=FileSystemLoader("./templates/"), autoescape=select_autoescape(["html", "xml"])
 )
@@ -94,7 +94,7 @@ def initcrawl(formatraw: str, directory: str | None = None, resume=False):
                     progress.update(task, advance=1)
                     continue
                 try:
-                    response = get(f"{url}{paperurl}", headers={"User-Agent": useragent}, timeout=15)
+                    response = get(f"{url}{paperurl}", headers={"User-Agent": useragent}, timeout=120)
                 except ConnectionError:
                     progress.console.log(f"Failed to download {paperurl}!")
                     paper["status"] = {"code": 404, "message": "Paper doesn't exist"}
@@ -152,7 +152,7 @@ def savestate(papers, scrapeconfig, directory):
         componentpapers.append(finalcomponent)
     with open(f"{directory}/components.json", "w") as file:
         json.dump(componentpapers, file)
-    generate_report(papers, scrapeconfig, directory, componentpapers)
+    #generate_report(papers, scrapeconfig, directory, componentpapers)
 
 
 def generate_report(

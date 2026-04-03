@@ -1,3 +1,12 @@
-/**/
-!format_*
-!/templates/**
+# Python and Poetry
+__pycache__/
+*.py[cod]
+.venv/
+
+# Scraper Temp Folders and Downloads
+temp_workspace_*/
+downloads/
+*.zip
+
+# VS Code
+.vscode/
