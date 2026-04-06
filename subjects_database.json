@@ -78,13 +78,15 @@
         "short_name": "Physics",
         "type": "AS and A-Level",
         "yearstart": 10,
-        "yearend": 24,
+        "yearend": 25,
         "info_duration": "1h 30m",
         "info_total_marks": 75,
         "components": [
             {"name": "AS Multi-Choice", "paper": 1, "duration": "1h 30m", "total_marks": 75},
             {"name": "AS Structured Response", "paper": 2, "duration": "1h 30m", "total_marks": 75},
-            {"name": "A2 Structured", "paper": 4, "duration": "1h 30m", "total_marks": 75}
+            {"name": "Advanced Practical Skills 1 ", "paper": 3, "duration": "1h 30m", "total_marks": 75},
+            {"name": "A2 Structured", "paper": 4, "duration": "1h 30m", "total_marks": 75},
+            {"name": "Planning, Analysis and Evaluation", "paper": 5, "duration": "1h 30m", "total_marks": 75}
         ]
     },
     "9708": {
@@ -100,6 +102,174 @@
             {"name": "AS Data Response and Essays", "paper": 2, "duration": "2h", "total_marks": 75},
             {"name": "A-Level Multi-Choice", "paper": 3, "duration": "2h", "total_marks": 75},
             {"name": "A-Level Data Response and Essays", "paper": 4, "duration": "2h", "total_marks": 75}
+        ]
+    },
+    "0610": {
+        "name": "IGCSE Biology",
+        "short_name": "Biology",
+        "type": "IGCSE",
+        "yearstart": 10,
+        "yearend": 25,
+        "info_duration": "Varies",
+        "info_total_marks": 100,
+        "components": [
+            {"name": "Multiple Choice", "paper": 2, "duration": "45m", "total_marks": 40},
+            {"name": "Theory Extended", "paper": 4, "duration": "1h 15m", "total_marks": 75},
+            {"name": "Paper 6 Alternative to practical", "paper": 6, "duration": "1h", "total_marks": 50}
+            
+        ]
+    },
+    "0448": {
+        "name": "IGCSE Pakistan Studies",
+        "short_name": "Pakistan Studies",
+        "type": "IGCSE",
+        "yearstart": 10,
+        "yearend": 23,
+        "info_duration": "Varies",
+        "info_total_marks": 100,
+        "components": [
+            {"name": "The History and Culture of Pakistan", "paper": 1, "duration": "1h 30min", "total_marks": 75},
+            {"name": "The Environment of Pakistan ", "paper": 2, "duration": "1h 30m", "total_marks": 75}
+        ]
+    },
+    "0478": {
+        "name": "IGCSE Computer Science",
+        "short_name": "Computer Science",
+        "type": "IGCSE",
+        "yearstart": 10,
+        "yearend": 25,
+        "info_duration": "Varies",
+        "info_total_marks": 100,
+        "components": [
+            {"name": "Computer Systems", "paper": 1, "duration": "1h 45min", "total_marks": 75},
+            {"name": "Algorithms, Programming and Logic", "paper": 2, "duration": "1h 45m", "total_marks": 75}
+        ]
+    },
+    "0580": {
+        "name": "IGCSE Mathematics",
+        "short_name": "Mathematics",
+        "type": "IGCSE",
+        "yearstart": 10,
+        "yearend": 25,
+        "info_duration": "Varies",
+        "info_total_marks": 100,
+        "components": [
+            {"name": "Paper 2 (Extened)", "paper": 2, "duration": "1h 30min", "total_marks": 75},
+            {"name": "Paper 4 (Extended)", "paper": 4, "duration": "2h 30m", "total_marks": 75}
+        ]
+    },
+    "0606": {
+        "name": "IGCSE Additional Mathematics",
+        "short_name": "Add Maths",
+        "type": "IGCSE",
+        "yearstart": 10,
+        "yearend": 25,
+        "info_duration": "Varies",
+        "info_total_marks": 100,
+        "components": [
+            {"name": "Paper 1 Non-calculator", "paper": 1, "duration": "2h", "total_marks": 80},
+            {"name": "Paper 2", "paper": 2, "duration": "2h", "total_marks": 80}
+        ]
+    },
+    "0450": {
+        "name": "IGCSE Business Studies",
+        "short_name": "Business Studies",
+        "type": "IGCSE",
+        "yearstart": 10,
+        "yearend": 25,
+        "info_duration": "Varies",
+        "info_total_marks": 100,
+        "components": [
+            {"name": "Short Answer and Data Response", "paper": 1, "duration": "1h 30min", "total_marks": 80},
+            {"name": "Case study", "paper": 2, "duration": "1h 30min", "total_marks": 80}
+        ]
+    },
+    "0455": {
+        "name": "IGCSE Economics",
+        "short_name": "Economics",
+        "type": "IGCSE",
+        "yearstart": 10,
+        "yearend": 25,
+        "info_duration": "Varies",
+        "info_total_marks": 100,
+        "components": [
+            {"name": "Multiple Choice", "paper": 1, "duration": "45m", "total_marks": 30},
+            {"name": "Structured Questions", "paper": 2, "duration": "2h 15min", "total_marks": 90}
+        ]
+    },
+    "0452": {
+        "name": "IGCSE Accounting",
+        "short_name": "Accounting",
+        "type": "IGCSE",
+        "yearstart": 10,
+        "yearend": 25,
+        "info_duration": "Varies",
+        "info_total_marks": 100,
+        "components": [
+            {"name": "Multiple Choice", "paper": 1, "duration": "1h 15m", "total_marks": 35},
+            {"name": "Structured Written Paper", "paper": 2, "duration": "1h 45min", "total_marks": 100}
+        ]
+    },
+    "9706": {
+        "name": "AS & A-Level Accounting",
+        "short_name": "Accounting",
+        "type": "AS and A-Level",
+        "yearstart": 10,
+        "yearend": 25,
+        "info_duration": "1h 30m",
+        "info_total_marks": 75,
+        "components": [
+            {"name": "AS Multi-Choice", "paper": 1, "duration": "1h", "total_marks": 30},
+            {"name": "Fundamentals of accounting", "paper": 2, "duration": "1h 45m", "total_marks": 75},
+            {"name": "Financial Accounting", "paper": 3, "duration": "1h 30min", "total_marks": 75},
+            {"name": "Cost and management accounting", "paper": 4, "duration": "1h", "total_marks": 50}
+        ]
+    },
+    "9609": {
+        "name": "AS & A-Level Business",
+        "short_name": "Business",
+        "type": "AS and A-Level",
+        "yearstart": 10,
+        "yearend": 25,
+        "info_duration": "1h 30m",
+        "info_total_marks": 75,
+        "components": [
+            {"name": "Business Concepts 1", "paper": 1, "duration": "1h 15m", "total_marks": 40},
+            {"name": "Business Concepts 2", "paper": 2, "duration": "1h 30m", "total_marks": 60},
+            {"name": "Business Decision Making", "paper": 3, "duration": "1h 45min", "total_marks": 60},
+            {"name": "Business Strategy", "paper": 4, "duration": "1h 15m", "total_marks": 40}
+        ]
+    },
+    "9701": {
+        "name": "AS & Chemistry",
+        "short_name": "Chemistry",
+        "type": "AS and A-Level",
+        "yearstart": 10,
+        "yearend": 25,
+        "info_duration": "1h 30m",
+        "info_total_marks": 75,
+        "components": [
+            {"name": "Multiple Choice ", "paper": 1, "duration": "1h 15m", "total_marks": 40},
+            {"name": "AS Level Structured Questions ", "paper": 2, "duration": "1h 15m", "total_marks": 60},
+            {"name": "Advanced Practical Skills 1", "paper": 3, "duration": "2h", "total_marks": 40},
+            {"name": "A Level Structured Questions", "paper": 4, "duration": "2h", "total_marks": 100},
+            {"name": "Planning, Analysis and Evaluation", "paper": 5, "duration": "1h 15m", "total_marks": 30}
+        ]
+    },
+    "9700": {
+        "name": "AS & Biology",
+        "short_name": "Biology",
+        "type": "AS and A-Level",
+        "yearstart": 10,
+        "yearend": 25,
+        "info_duration": "1h 30m",
+        "info_total_marks": 75,
+        "components": [
+            {"name": "Multiple Choice ", "paper": 1, "duration": "1h 15m", "total_marks": 40},
+            {"name": "AS Level Structured Questions ", "paper": 2, "duration": "1h 15m", "total_marks": 60},
+            {"name": "Advanced Practical Skills 1", "paper": 3, "duration": "2h", "total_marks": 40},
+            {"name": "A Level Structured Questions", "paper": 4, "duration": "2h", "total_marks": 100},
+            {"name": "Planning, Analysis and Evaluation", "paper": 5, "duration": "1h 15m", "total_marks": 30}
         ]
     }
 }

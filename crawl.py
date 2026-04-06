@@ -1,9 +1,8 @@
 import json
 import os
+import time
 from typing import Dict, Literal, TypedDict
 from argparse import ArgumentParser
-
-# from bs4 import BeautifulSoup
 from requests import get
 from requests.exceptions import ConnectionError
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -11,42 +10,36 @@ from rich.console import Console
 from rich.progress import Progress
 from shutil import copyfile, copytree
 
-##make sure no temp folder made
 jinjaenvironment = Environment(
     loader=FileSystemLoader("./templates/"), autoescape=select_autoescape(["html", "xml"])
 )
 
-
 console = Console()
 print = console.print
-
 
 class ErrorCode(TypedDict):
     code: int
     message: str
-
 
 class PaperName(TypedDict):
     code: int | str
     year: int
     season: Literal["s", "w"]
     papertype: Literal["ms", "qp"]
-    paper: int
-    variant: Literal[1, 2, 3]
+    paper: int | str
+    variant: int | str
     filename: str | None
     status: ErrorCode | Literal["TODO", "success"] | None
 
-
 class Component(TypedDict):
     name: str
-    paper: int
+    paper: int | str
     papers: list[PaperName]
     duration: str
-    total_marks: int
-
+    total_marks: int | str
 
 def initcrawl(formatraw: str, directory: str | None = None, resume=False):
-    console.log("Resuming download ..")
+    console.log("Starting download process...")
     scrapeconfig = json.loads(formatraw)
     url = scrapeconfig["urldata"]["url"]
     useragent = scrapeconfig["urldata"]["user-agent"]
@@ -54,6 +47,7 @@ def initcrawl(formatraw: str, directory: str | None = None, resume=False):
     if not os.path.exists(directory):
         os.makedirs(str(directory))
     
+    # Updated to test variants 1, 2, 3 AND no-variants ("", "0")
     papers: list[PaperName] = [
         {
             "code": scrapeconfig["code"],
@@ -71,8 +65,9 @@ def initcrawl(formatraw: str, directory: str | None = None, resume=False):
         for paper in [
             component.get("paper") for component in scrapeconfig["info"]["components"]
         ]
-        for variant in [1, 2, 3]
+        for variant in [1, 2, 3, "", "0"]  # NEW: Added "" for _1.pdf and "0" for _01.pdf
     ] # type: ignore
+
     if resume:
         with open(f"{directory}/papers.json", "r") as file:
             papers = json.load(file)
@@ -82,7 +77,23 @@ def initcrawl(formatraw: str, directory: str | None = None, resume=False):
         try:
             task = progress.add_task("Downloading papers...", total=len(papers))
             for index, paper in enumerate(papers):
-                paperurl = f"{paper['code']}_{paper['season']}{'{0}'.format(paper['year']).zfill(2)}_{paper['papertype']}_{paper['paper']}{paper['variant']}.pdf"
+                
+                # --- NEW URL GENERATION LOGIC ---
+                # Safely get the base paper number (turns "01" or 1 into "1")
+                p_val = str(int(paper['paper'])) 
+                v_val = str(paper['variant'])
+                
+                # Build the correct suffix depending on the variant type
+                if v_val == "":
+                    suffix = f"_{p_val}.pdf"        # For 0448_s17_qp_1.pdf
+                elif v_val == "0":
+                    suffix = f"_0{p_val}.pdf"       # For 0448_s25_qp_01.pdf
+                else:
+                    suffix = f"_{p_val}{v_val}.pdf" # For 9709_s15_qp_12.pdf
+                    
+                paperurl = f"{paper['code']}_{paper['season']}{str(paper['year']).zfill(2)}_{paper['papertype']}{suffix}"
+                # --------------------------------
+
                 if not paper['status'] == "TODO":
                     progress.console.log("Already downloaded " + paperurl + "!")
                     progress.update(task)
@@ -93,48 +104,45 @@ def initcrawl(formatraw: str, directory: str | None = None, resume=False):
                     paper["filename"] = paperurl
                     progress.update(task, advance=1)
                     continue
+
                 try:
-                    response = get(f"{url}{paperurl}", headers={"User-Agent": useragent}, timeout=120)
-                except ConnectionError:
-                    progress.console.log(f"Failed to download {paperurl}!")
-                    paper["status"] = {"code": 404, "message": "Paper doesn't exist"}
+                    # Bulletproof download block
+                    response = get(f"{url}{paperurl}", headers={"User-Agent": useragent}, timeout=60)
+                    
+                    if response.status_code != 200 or "<!DOCTYPE html>" in response.text:
+                        # 404 means this specific variant format doesn't exist, just skip safely.
+                        paper["status"] = {"code": 404, "message": "Paper doesn't exist"}
+                        paper["filename"] = None
+                        progress.update(task, advance=1)
+                        continue
+                        
+                    with open(f"{directory}/{paperurl}", "wb") as file:
+                        file.write(response.content)
+                        
+                except Exception as e:
+                    progress.console.log(f"Skipped {paperurl} due to network error: {e}")
+                    paper["status"] = {"code": 500, "message": "Network Error"}
                     paper["filename"] = None
                     progress.update(task, advance=1)
+                    time.sleep(1.5)
                     continue
-                if response.status_code != 200:
-                    progress.console.log(f"Failed to download {paperurl}!")
-                    paper["status"] = {"code": 404, "message": "Paper doesn't exist"}
-                    paper["filename"] = None
-                    progress.update(task, advance=1)
-                    continue
-                if "<!DOCTYPE html>" in response.text:
-                    progress.console.log(f"Failed to download {paperurl}!")
-                    paper["status"] = {"code": 404, "message": "Paper doesn't exist"}
-                    paper["filename"] = None
-                    progress.update(task, advance=1)
-                    continue
-                
-                with open(f"{directory}/{paperurl}", "wb") as file:
-                    file.write(response.content)
+
                 progress.console.log(f"Downloaded {paperurl}!")
                 paper["status"] = "success"
                 paper["filename"] = paperurl
-
                 progress.update(task, advance=1)
+                
+                # Pause to prevent server blocks
+                time.sleep(1.5) 
+                
         except TimeoutError:
             print("\nError: Program interrupted, saving state and gracefully quitting.")
             savestate(papers, scrapeconfig, directory)
             return
-    print(f"Successfully downloaded {len(processed_papers)} papers!")
-    # Parse successful papers into a list
-    savestate(papers, scrapeconfig, directory)
+
     print("Download complete!")
 
-
 def savestate(papers, scrapeconfig, directory):
-    """
-    Saves the state of the program into directory/papers.json and directory/components.json.
-    """
     with open(f"{directory}/papers.json", "w") as file:
         json.dump(papers, file)
     componentpapers = []
@@ -152,51 +160,17 @@ def savestate(papers, scrapeconfig, directory):
         componentpapers.append(finalcomponent)
     with open(f"{directory}/components.json", "w") as file:
         json.dump(componentpapers, file)
-    #generate_report(papers, scrapeconfig, directory, componentpapers)
-
-
-def generate_report(
-    successful_papers: list[PaperName],
-    scrapeconfig: Dict,
-    directory: str,
-    componentpapers: list[Component],
-    papers: list[PaperName] = None,
-):
-    template = jinjaenvironment.get_template("report.html")
-    with open(f"{directory}/report.html", "w") as file:
-        file.write(
-            template.render(
-                components=componentpapers,
-                code=scrapeconfig["code"],
-                num_successful=len(successful_papers),
-                num_failed=(len(papers) - len(successful_papers) if papers else "N/A"),
-                year_start=scrapeconfig["yearstart"],
-                year_end=scrapeconfig["yearend"],
-            )
-        )
-    copyfile("templates/index.html", f"{directory}/index.html")
-    try:
-        copytree("templates/assets/", f"{directory}assets/")
-    except FileExistsError:
-        print("Assets already exists!")
-    
-
+    # generate_report(papers, scrapeconfig, directory, componentpapers)
 
 def main():
     parser = ArgumentParser(
         description="Crawl CAIE past papers from a URL", prog="crawl"
     )
     parser.add_argument("format", help="Path to the JSON format file")
-    parser.add_argument(
-        "--directory", help="Directory to save the papers in", default=None
-    )
-    parser.add_argument(
-        "--report", help="Generate a report from existing download", action="store_true"
-    )
-    parser.add_argument(
-            "--resume", help="Resumes a download (requires directory)", action="store_true"
-            )
+    parser.add_argument("--directory", help="Directory to save the papers in", default=None)
+    parser.add_argument("--resume", help="Resumes a download (requires directory)", action="store_true")
     args = parser.parse_args()
+    
     if not os.path.exists(args.format):
         console.log("[red bold]Error: Format file does not exist![/red bold]")
         return
@@ -207,23 +181,8 @@ def main():
         if not os.path.exists(f"{args.directory}/papers.json"):
             console.log("[red bold]Error: papers.json file not found[/red bold]")
         initcrawl(formatraw, args.directory, resume=True)
-
-    if args.report:
-        if not os.path.exists(f"{args.directory}/papers.json") or not os.path.exists(
-            f"{args.directory}/components.json"
-        ):
-            console.log(
-                "[red bold]Error: papers.json or components.json not found![/red bold]"
-            )
-            return
-        with open(f"{args.directory}/papers.json", "r") as file:
-            papers = json.load(file)
-        with open(f"{args.directory}/components.json", "r") as file:
-            components = json.load(file)
-        generate_report(papers, json.loads(formatraw), args.directory, components)
     elif not args.resume:
         initcrawl(formatraw, args.directory)
-
 
 if __name__ == "__main__":
     main()
