@@ -1,6 +1,6 @@
 from fastapi import FastAPI, BackgroundTasks
 from fastapi.responses import FileResponse
-from fastapi.middleware.cors import CORSMiddleware  # <-- NEW: Imported CORS
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import json
 import os
@@ -10,22 +10,21 @@ from crawl import initcrawl
 
 app = FastAPI(title="Paper Scraper API")
 
-# --- NEW: CORS Security Setup ---
-# This tells FastAPI: "It is safe to let the React app talk to me!"
+# --- CORS Security Setup ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allows all origins (perfect for local development)
+    allow_origins=["*"],  
     allow_credentials=True,
-    allow_methods=["*"],  # Allows GET, POST, etc.
+    allow_methods=["*"],  
     allow_headers=["*"],
 )
-# --------------------------------
 
 class ScrapeRequest(BaseModel):
     subject_code: str 
     start_year: int 
     end_year: int 
     selected_papers: list[int | str] 
+    selected_variants: list[str]  # Accepts ["1", "2"] or ["All"]
 
 try:
     with open("subjects_database.json", "r") as db_file:
@@ -42,12 +41,10 @@ def cleanup_workspace(directory_path: str):
     except Exception as e:
         print(f"\n[CLEANUP] Error deleting {directory_path}: {e}")
 
-# --- NEW: The Missing Database Route ---
-# This is what React fetches when the page loads!
+# --- The Database Route ---
 @app.get("/api/subjects")
 def get_subjects():
     return SUBJECT_DATABASE
-# ---------------------------------------
 
 @app.post("/api/download")
 def download_papers(req: ScrapeRequest, background_tasks: BackgroundTasks):
@@ -66,6 +63,12 @@ def download_papers(req: ScrapeRequest, background_tasks: BackgroundTasks):
         comp for comp in subject_info["components"] 
         if str(int(comp["paper"])) in normalized_requests
     ]
+
+    # --- VARIANT LOGIC ---
+    if "All" in req.selected_variants:
+        final_variants = [1, 2, 3, "", "0"]
+    else:
+        final_variants = [int(v) for v in req.selected_variants] + ["", "0"]
 
     formatted_components = []
     for comp in requested_components:
@@ -87,7 +90,8 @@ def download_papers(req: ScrapeRequest, background_tasks: BackgroundTasks):
         "info": {
             "duration": subject_info["info_duration"],
             "total_marks": subject_info["info_total_marks"],
-            "components": formatted_components
+            "components": formatted_components,
+            "variants": final_variants 
         },
         "urldata": {
             "url": "https://pastpapers.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/",

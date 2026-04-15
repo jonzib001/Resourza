@@ -6,6 +6,7 @@
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "1h 30m",
+        "variants": ["1","2","3","5"],
         "info_total_marks": 75,
         "components": [
             {"name": "Pure Mathematics 1", "paper": 1, "duration": "1h 30m", "total_marks": 75},
@@ -22,6 +23,7 @@
         "yearstart": 15,
         "yearend": 25,
         "info_duration": "1h 45m",
+        "variants": ["2","3"],
         "info_total_marks": 75,
         "components": [
             {"name": "Computer Systems", "paper": 1, "duration": "1h 45m", "total_marks": 75},
@@ -35,6 +37,7 @@
         "yearstart": 10,
         "yearend": 23,
         "info_duration": "Varies",
+        "variants": ["1","2","3"],
         "info_total_marks": 100,
         "components": [
             {"name": "Multiple Choice", "paper": 1, "duration": "45m", "total_marks": 40},
@@ -50,6 +53,7 @@
         "yearstart": 10,
         "yearend": 23,
         "info_duration": "Varies",
+        "variants": ["1","2","3"],
         "info_total_marks": 100,
         "components": [
             {"name": "Multiple Choice", "paper": 1, "duration": "45m", "total_marks": 40},
@@ -65,6 +69,7 @@
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "2h",
+        "variants": ["1","2","3","4"],
         "info_total_marks": 75,
         "components": [
             {"name": "Further Pure Mathematics 1", "paper": 1, "duration": "2h", "total_marks": 75},
@@ -80,6 +85,7 @@
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "1h 30m",
+        "variants": ["1","2","3","4"],
         "info_total_marks": 75,
         "components": [
             {"name": "AS Multi-Choice", "paper": 1, "duration": "1h 30m", "total_marks": 75},
@@ -96,6 +102,7 @@
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "1h 30m",
+        "variants": ["1","2","3","4"],
         "info_total_marks": 75,
         "components": [
             {"name": "AS Multi-Choice", "paper": 1, "duration": "1h 30m", "total_marks": 75},
@@ -111,6 +118,7 @@
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "Varies",
+        "variants": ["1","2","3"],
         "info_total_marks": 100,
         "components": [
             {"name": "Multiple Choice", "paper": 2, "duration": "45m", "total_marks": 40},
@@ -126,6 +134,7 @@
         "yearstart": 10,
         "yearend": 23,
         "info_duration": "Varies",
+        "variants": [],
         "info_total_marks": 100,
         "components": [
             {"name": "The History and Culture of Pakistan", "paper": 1, "duration": "1h 30min", "total_marks": 75},
@@ -139,6 +148,7 @@
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "Varies",
+        "variants": ["1","2","3"],
         "info_total_marks": 100,
         "components": [
             {"name": "Computer Systems", "paper": 1, "duration": "1h 45min", "total_marks": 75},
@@ -152,6 +162,7 @@
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "Varies",
+        "variants": ["1","2","3"],
         "info_total_marks": 100,
         "components": [
             {"name": "Paper 2 (Extened)", "paper": 2, "duration": "1h 30min", "total_marks": 75},
@@ -165,6 +176,7 @@
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "Varies",
+        "variants": ["1","2","3"],
         "info_total_marks": 100,
         "components": [
             {"name": "Paper 1 Non-calculator", "paper": 1, "duration": "2h", "total_marks": 80},
@@ -178,6 +190,7 @@
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "Varies",
+        "variants": ["1","2","3"],
         "info_total_marks": 100,
         "components": [
             {"name": "Short Answer and Data Response", "paper": 1, "duration": "1h 30min", "total_marks": 80},
@@ -191,6 +204,7 @@
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "Varies",
+        "variants": ["1","2","3"],
         "info_total_marks": 100,
         "components": [
             {"name": "Multiple Choice", "paper": 1, "duration": "45m", "total_marks": 30},
@@ -204,6 +218,7 @@
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "Varies",
+        "variants": ["1","2","3"],
         "info_total_marks": 100,
         "components": [
             {"name": "Multiple Choice", "paper": 1, "duration": "1h 15m", "total_marks": 35},
@@ -217,6 +232,7 @@
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "1h 30m",
+        "variants": ["1","2","3"],
         "info_total_marks": 75,
         "components": [
             {"name": "AS Multi-Choice", "paper": 1, "duration": "1h", "total_marks": 30},
@@ -232,6 +248,7 @@
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "1h 30m",
+        "variants": ["1","2","3"],
         "info_total_marks": 75,
         "components": [
             {"name": "Business Concepts 1", "paper": 1, "duration": "1h 15m", "total_marks": 40},
@@ -241,12 +258,13 @@
         ]
     },
     "9701": {
-        "name": "AS & Chemistry",
+        "name": "AS & A-Level Chemistry",
         "short_name": "Chemistry",
         "type": "AS and A-Level",
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "1h 30m",
+        "variants": ["1","2","3","4"],
         "info_total_marks": 75,
         "components": [
             {"name": "Multiple Choice ", "paper": 1, "duration": "1h 15m", "total_marks": 40},
@@ -257,12 +275,13 @@
         ]
     },
     "9700": {
-        "name": "AS & Biology",
+        "name": "AS & A-Level Biology",
         "short_name": "Biology",
         "type": "AS and A-Level",
         "yearstart": 10,
         "yearend": 25,
         "info_duration": "1h 30m",
+        "variants": ["1","2","3","4"],
         "info_total_marks": 75,
         "components": [
             {"name": "Multiple Choice ", "paper": 1, "duration": "1h 15m", "total_marks": 40},

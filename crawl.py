@@ -47,7 +47,9 @@ def initcrawl(formatraw: str, directory: str | None = None, resume=False):
     if not os.path.exists(directory):
         os.makedirs(str(directory))
     
-    # Updated to test variants 1, 2, 3 AND no-variants ("", "0")
+    # Get variants from config, fallback to default if missing
+    target_variants = scrapeconfig["info"].get("variants", [1, 2, 3, "", "0"])
+    
     papers: list[PaperName] = [
         {
             "code": scrapeconfig["code"],
@@ -65,7 +67,7 @@ def initcrawl(formatraw: str, directory: str | None = None, resume=False):
         for paper in [
             component.get("paper") for component in scrapeconfig["info"]["components"]
         ]
-        for variant in [1, 2, 3, "", "0"]  # NEW: Added "" for _1.pdf and "0" for _01.pdf
+        for variant in target_variants  
     ] # type: ignore
 
     if resume:
@@ -78,18 +80,16 @@ def initcrawl(formatraw: str, directory: str | None = None, resume=False):
             task = progress.add_task("Downloading papers...", total=len(papers))
             for index, paper in enumerate(papers):
                 
-                # --- NEW URL GENERATION LOGIC ---
-                # Safely get the base paper number (turns "01" or 1 into "1")
+                # --- URL GENERATION LOGIC ---
                 p_val = str(int(paper['paper'])) 
                 v_val = str(paper['variant'])
                 
-                # Build the correct suffix depending on the variant type
                 if v_val == "":
-                    suffix = f"_{p_val}.pdf"        # For 0448_s17_qp_1.pdf
+                    suffix = f"_{p_val}.pdf"        
                 elif v_val == "0":
-                    suffix = f"_0{p_val}.pdf"       # For 0448_s25_qp_01.pdf
+                    suffix = f"_0{p_val}.pdf"       
                 else:
-                    suffix = f"_{p_val}{v_val}.pdf" # For 9709_s15_qp_12.pdf
+                    suffix = f"_{p_val}{v_val}.pdf" 
                     
                 paperurl = f"{paper['code']}_{paper['season']}{str(paper['year']).zfill(2)}_{paper['papertype']}{suffix}"
                 # --------------------------------
@@ -106,11 +106,9 @@ def initcrawl(formatraw: str, directory: str | None = None, resume=False):
                     continue
 
                 try:
-                    # Bulletproof download block
                     response = get(f"{url}{paperurl}", headers={"User-Agent": useragent}, timeout=60)
                     
                     if response.status_code != 200 or "<!DOCTYPE html>" in response.text:
-                        # 404 means this specific variant format doesn't exist, just skip safely.
                         paper["status"] = {"code": 404, "message": "Paper doesn't exist"}
                         paper["filename"] = None
                         progress.update(task, advance=1)
@@ -132,7 +130,6 @@ def initcrawl(formatraw: str, directory: str | None = None, resume=False):
                 paper["filename"] = paperurl
                 progress.update(task, advance=1)
                 
-                # Pause to prevent server blocks
                 time.sleep(1.5) 
                 
         except TimeoutError:
@@ -160,7 +157,6 @@ def savestate(papers, scrapeconfig, directory):
         componentpapers.append(finalcomponent)
     with open(f"{directory}/components.json", "w") as file:
         json.dump(componentpapers, file)
-    # generate_report(papers, scrapeconfig, directory, componentpapers)
 
 def main():
     parser = ArgumentParser(
