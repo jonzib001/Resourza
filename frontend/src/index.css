@@ -1,1 +1,25 @@
+/* Inject Tailwind engine */
 @import "tailwindcss";
+
+/* 1. IMPORT MANROPE FONT (Via Google Fonts) */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+/* 2. DEFINE YOUR EXACT BRAND COLORS & FONT AS TAILWIND UTILITIES */
+@theme {
+  /* COLORS */
+  --color-primary-academic: #1E88E5;     /* Primary Blue */
+  --color-secondary-slate: #102A43;      /* Dark Slate for Headings */
+  --color-bg-light-slate: #F0F4F8;       /* Subtle Border/Surface */
+  --color-translucent-watermark: #F1F5F9;/* Low Opacity BG Text */
+
+  /* TYPOGRAPHY */
+  --font-family-manrope: '"Manrope"', sans-serif;
+}
+
+/* 3. SET GLOBAL BODY STYLES */
+body {
+  font-family: var(--font-family-manrope);
+  background-color: #FFFFFF;
+  color: #1a1a1a;
+  @apply antialiased; /* Smother font rendering */
+}
