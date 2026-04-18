@@ -1,4 +1,4 @@
-from fastapi import FastAPI, BackgroundTasks
+from fastapi import FastAPI, BackgroundTasks, Response
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -11,12 +11,14 @@ from crawl import initcrawl
 app = FastAPI(title="Paper Scraper API")
 
 # --- CORS Security Setup ---
+# THE FIX: We updated the CORS middleware to globally allow exposed headers
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  
     allow_credentials=True,
     allow_methods=["*"],  
     allow_headers=["*"],
+    expose_headers=["Content-Length"] # This is crucial for React to see the file size
 )
 
 class ScrapeRequest(BaseModel):
@@ -24,7 +26,7 @@ class ScrapeRequest(BaseModel):
     start_year: int 
     end_year: int 
     selected_papers: list[int | str] 
-    selected_variants: list[str]  # Accepts ["1", "2"] or ["All"]
+    selected_variants: list[str]
 
 try:
     with open("subjects_database.json", "r") as db_file:
@@ -112,8 +114,17 @@ def download_papers(req: ScrapeRequest, background_tasks: BackgroundTasks):
 
     background_tasks.add_task(cleanup_workspace, os.path.abspath(temp_dir))
 
+    # --- THE FIX: Calculate size and attach custom headers to the FileResponse ---
+    file_size = os.path.getsize(final_zip_file)
+    
+    headers = {
+        "Content-Length": str(file_size),
+        "Access-Control-Expose-Headers": "Content-Length"
+    }
+
     return FileResponse(
         path=final_zip_file, 
         filename=f"CAIE_{req.subject_code}_Papers.zip", 
-        media_type="application/zip"
+        media_type="application/zip",
+        headers=headers
     )

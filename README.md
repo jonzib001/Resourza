@@ -10,3 +10,7 @@ poetry run python crawl.py configs/format_9709.json
 Used to run the scraper entirely
 
 ##
+
+##
+main:app --reload --port8001
+npm run dev

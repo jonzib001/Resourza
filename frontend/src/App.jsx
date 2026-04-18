@@ -5,7 +5,7 @@ import ResourzaFetcherForm from './components/ResourzaFetcherForm';
 
 function App() {
   return (
-    <div className="min-h-screen bg-white font-manrope overflow-hidden relative">
+    <div className="min-h-screen bg-white font-manrope overflow-x-hidden relative">
       
       {/* 1. Navbar */}
       <Navbar />

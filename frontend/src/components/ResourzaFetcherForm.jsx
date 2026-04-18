@@ -147,6 +147,7 @@ export default function ResourceFetcherForm() {
 
       // 1. Get the total file size (If your Python backend sends it)
       const contentLength = response.headers.get('content-length');
+      console.log("The exact file size from Python is:", contentLength);
       const total = contentLength ? parseInt(contentLength, 10) : 0;
       let loaded = 0;
 
@@ -346,8 +347,11 @@ export default function ResourceFetcherForm() {
             )}
 
             {downloadState === 'success' && (
-              <div className="w-full p-5 rounded-full font-bold text-base flex items-center justify-center bg-green-500 text-white shadow-xl shadow-green-500/20 animate-fade-in pointer-events-none">
-                <CheckCircleIcon /> Download Complete!
+              <div className="w-full p-5 rounded-full font-bold text-base flex items-center justify-center bg-bg-light-slate border border-primary-academic/30 text-secondary-slate shadow-xl shadow-primary-academic/10 animate-fade-in pointer-events-none transition-all duration-500">
+                <svg className="w-6 h-6 mr-2 text-primary-academic" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Download Complete!
               </div>
             )}
           </div>
