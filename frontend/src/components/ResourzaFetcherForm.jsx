@@ -69,7 +69,7 @@ export default function ResourceFetcherForm() {
   useEffect(() => {
     const fetchDatabase = async () => {
       try {
-        const response = await fetch("resourza-production.up.railway.app");
+        const response = await fetch("https://resourza-production.up.railway.app/api/subjects");
         const data = await response.json();
         setDatabase(data);
         setIsLoading(false);
@@ -137,7 +137,7 @@ export default function ResourceFetcherForm() {
     };
 
     try {
-      const response = await fetch("resourza-production.up.railway.app", {
+      const response = await fetch("https://resourza-production.up.railway.app/api/download", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
