@@ -69,7 +69,7 @@ export default function ResourceFetcherForm() {
   useEffect(() => {
     const fetchDatabase = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8001/api/subjects");
+        const response = await fetch("resourza-production.up.railway.app");
         const data = await response.json();
         setDatabase(data);
         setIsLoading(false);
@@ -137,7 +137,7 @@ export default function ResourceFetcherForm() {
     };
 
     try {
-      const response = await fetch("http://127.0.0.1:8001/api/download", {
+      const response = await fetch("resourza-production.up.railway.app", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
